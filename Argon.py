@@ -49,21 +49,20 @@ def listen():
     
     with sr.Microphone() as source:
         print("\nListening...")
-        r.adjust_for_ambient_noise(source, duration=0.5)
+        r.adjust_for_ambient_noise(source, duration=1)
         
         try:
             audio = r.listen(source, timeout=8, phrase_time_limit=10)
         except sr.WaitTimeoutError:
             return ""
 
-    
-    with open("temp.wav", "wb") as f:
-        f.write(audio.get_wav_data())
-
+    # Save audio to file and use Whisper
     try:
-       
+        with open("temp.wav", "wb") as f:
+            f.write(audio.get_wav_data())
+        
         result = model.transcribe("temp.wav", language="en")
-        text = result["text"].strip()
+        text = str(result["text"]).strip()
         
         
         if len(text) < 2:
