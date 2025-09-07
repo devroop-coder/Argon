@@ -1,0 +1,5 @@
+openai-whisper==20250625
+SpeechRecognition==3.10.0
+PyAudio==0.2.14
+torch==2.8.0
+numpy==2.0.2
